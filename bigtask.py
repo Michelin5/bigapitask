@@ -62,27 +62,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == 280 and event.scancode == 73:
             scaale('+')
-            # spn = float(spn) + 0.01
-            # spn = str(spn)
-            # map_request = "http://static-maps.yandex.ru/1.x/?ll=37.530887,55.703118&spn={},0.002&l=sat".format(spn)
-            # response = requests.get(map_request)
-            # with open(map_file, "wb") as file:
-            # file.write(response.content)
-            # screen.blit(pygame.image.load(map_file), (0, 0))
-            # pygame.display.flip()
-            # os.remove(map_file)
         if event.type == pygame.KEYDOWN and event.key == 281 and event.scancode == 81:
             scaale('-')
-            # if float(spn) > 0.01:
-            # spn = float(spn) - 0.01
-            # spn = str(spn)
-            # map_request = "http://static-maps.yandex.ru/1.x/?ll=37.530887,55.703118&spn={},0.002&l=sat".format(spn)
-            # response = requests.get(map_request)
-            # with open(map_file, "wb") as file:
-            # file.write(response.content)
-            # screen.blit(pygame.image.load(map_file), (0, 0))
-            # pygame.display.flip()
-            # os.remove(map_file)
         if event.type == pygame.QUIT:
             running = False
 # Рисуем картинку, загружаемую из только что созданного файла.
