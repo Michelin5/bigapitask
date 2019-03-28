@@ -3,6 +3,7 @@ import requests
 import sys
 import os
 
+filtr = 'sat'
 spn = input()
 cord1, cord2 = input().split()
 
@@ -25,7 +26,7 @@ def moove(arrow):
         cord2 = float(cord2)
         cord2 -= (float(spn) * 2)
         cord2 = str(cord2)
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=map".format(cord1, cord2, spn)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
         file.write(response.content)
@@ -43,7 +44,7 @@ def scaale(znak):
         if float(spn) > 0.01:
             spn = float(spn) - 0.01
             spn = str(spn)
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=map".format(cord1, cord2, spn)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
         file.write(response.content)
@@ -56,7 +57,7 @@ response = None
 # coords = 37.530887, 55.703118
 
 try:
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=map".format(cord1, cord2, spn)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
     response = requests.get(map_request)
 
     if not response:
