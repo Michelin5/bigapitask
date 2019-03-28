@@ -25,7 +25,7 @@ def moove(arrow):
         cord2 = float(cord2)
         cord2 -= (float(spn) * 2)
         cord2 = str(cord2)
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=sat".format(cord1, cord2, spn)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=map".format(cord1, cord2, spn)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
         file.write(response.content)
@@ -43,7 +43,7 @@ def scaale(znak):
         if float(spn) > 0.01:
             spn = float(spn) - 0.01
             spn = str(spn)
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=sat".format(cord1, cord2, spn)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=map".format(cord1, cord2, spn)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
         file.write(response.content)
@@ -56,7 +56,7 @@ response = None
 # coords = 37.530887, 55.703118
 
 try:
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=sat".format(cord1, cord2, spn)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l=map".format(cord1, cord2, spn)
     response = requests.get(map_request)
 
     if not response:
@@ -90,23 +90,16 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == 276 and event.scancode == 75:
             moove('left')
-            print(cord1, cord2)
         if event.type == pygame.KEYDOWN and event.key == 275 and event.scancode == 77:
             moove('right')
-            print(cord1, cord2)
         if event.type == pygame.KEYDOWN and event.key == 273 and event.scancode == 72:
             moove('forward')
-            print(cord1, cord2)
         if event.type == pygame.KEYDOWN and event.key == 274 and event.scancode == 80:
             moove('back')
-            print(cord1, cord2)
-
         if event.type == pygame.KEYDOWN and event.key == 280 and event.scancode == 73:
             scaale('+')
-            print(spn)
         if event.type == pygame.KEYDOWN and event.key == 281 and event.scancode == 81:
             scaale('-')
-            print(spn)
         if event.type == pygame.QUIT:
             running = False
 # Рисуем картинку, загружаемую из только что созданного файла.
