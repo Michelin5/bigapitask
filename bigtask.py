@@ -3,9 +3,31 @@ import requests
 import sys
 import os
 
+# spisok = ['sat', 'map', 'trf]
+# print(','.join(spisok))
 filtr = 'sat'
 spn = input()
 cord1, cord2 = input().split()
+
+
+# КНОПКИ СЛОЕВ: 1 - СПУТНИК, 2 - СХЕМА, 3 - ГИБРИД
+
+def filteer(key):
+    global filtr
+    if key == '1':
+        filtr = 'sat'
+    elif key == '2':
+        filtr = 'map'
+    elif key == '3':
+        filtr = 'sat,skl'
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn,
+                                                                                        filtr)
+    response = requests.get(map_request)
+    with open(map_file, "wb") as file:
+        file.write(response.content)
+    screen.blit(pygame.image.load(map_file), (0, 0))
+    pygame.display.flip()
+    os.remove(map_file)
 
 
 def moove(arrow):
@@ -26,7 +48,8 @@ def moove(arrow):
         cord2 = float(cord2)
         cord2 -= (float(spn) * 2)
         cord2 = str(cord2)
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn,
+                                                                                        filtr)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
         file.write(response.content)
@@ -90,6 +113,12 @@ while running:
         counter = 1
         pygame.display.flip()
     for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN and event.key  == 49 and event.scancode == 2:
+            filteer('1')
+        if event.type == pygame.KEYDOWN and event.key  == 50 and event.scancode == 3:
+            filteer('2')
+        if event.type == pygame.KEYDOWN and event.key  == 51 and event.scancode == 4:
+            filteer('3')
         if event.type == pygame.KEYDOWN and event.key == 276 and event.scancode == 75:
             moove('left')
         if event.type == pygame.KEYDOWN and event.key == 275 and event.scancode == 77:
