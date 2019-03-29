@@ -38,11 +38,11 @@ def moove(arrow):
 def scaale(znak):
     global spn, cord1, cord2
     if znak == '+':
-        spn = float(spn) + 0.01
+        spn = float(spn) * 2
         spn = str(spn)
     elif znak == '-':
         if float(spn) > 0.01:
-            spn = float(spn) - 0.01
+            spn = float(spn) / 2
             spn = str(spn)
     map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
     response = requests.get(map_request)
