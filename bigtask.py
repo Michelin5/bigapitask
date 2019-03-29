@@ -38,7 +38,8 @@ def moove(arrow):
 def scaale(znak):
     global spn, cord1, cord2
     if znak == '+':
-        spn = float(spn) * 2
+        if float(spn) < 131:
+            spn = float(spn) * 2
         spn = str(spn)
     elif znak == '-':
         if float(spn) > 0.004:
