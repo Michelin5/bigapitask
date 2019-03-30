@@ -138,28 +138,29 @@ while running:
         counter = 1
         pygame.display.flip()
     for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN and event.key == 49 and event.scancode == 2:
+        # print(event)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
             filteer('1')
-        if event.type == pygame.KEYDOWN and event.key == 50 and event.scancode == 3:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_2:
             filteer('2')
-        if event.type == pygame.KEYDOWN and event.key == 51 and event.scancode == 4:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_3:
             filteer('3')
-        if event.type == pygame.KEYDOWN and event.key == 276 and event.scancode == 75:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
             moove('left')
             # print(cord1)
-        if event.type == pygame.KEYDOWN and event.key == 275 and event.scancode == 77:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
             moove('right')
             # print(cord1)
-        if event.type == pygame.KEYDOWN and event.key == 273 and event.scancode == 72:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             moove('forward')
             # print(cord2)
-        if event.type == pygame.KEYDOWN and event.key == 274 and event.scancode == 80:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
             moove('back')
             # print(cord2)
-        if event.type == pygame.KEYDOWN and event.key == 280 and event.scancode == 73:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_PAGEUP:
             scaale('+')
             # print(cord1, spn)
-        if event.type == pygame.KEYDOWN and event.key == 281 and event.scancode == 81:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_PAGEDOWN:
             scaale('-')
         if event.type == pygame.QUIT:
             running = False
