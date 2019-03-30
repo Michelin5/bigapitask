@@ -3,8 +3,18 @@ import requests
 import sys
 import os
 
+
 # границы cord1 = -174, 174             -179, 179
 # границы cord2 = -50, 70               -55, 80
+
+def change_params(spn, cord1, cord2, filter):
+    params = {
+        "ll": ",".join([cord1, cord2]),
+        "spn": ",".join([spn, spn]),
+        "l": filter
+    }
+    return params
+
 
 api_server = "http://static-maps.yandex.ru/1.x/"
 spn = input()
@@ -13,12 +23,8 @@ filtr = 'sat'
 # lon = "37.530887"
 # lat = "55.703118"
 
-params = {
-    "ll": ",".join([cord1, cord2]),
-    "spn": ",".join([spn, spn]),
-    "l": filtr
-}
-response = requests.get(api_server, params=params)
+
+response = requests.get(api_server, params=change_params(spn, cord1, cord2, filtr))
 
 
 # spisok = ['sat', 'map', 'trf]
@@ -35,12 +41,7 @@ def filteer(key):
         filtr = 'map'
     elif key == '3':
         filtr = 'sat,skl'
-    params = {
-        "ll": ",".join([cord1, cord2]),
-        "spn": ",".join([spn, spn]),
-        "l": filtr
-    }
-    response = requests.get(api_server, params=params)
+    response = requests.get(api_server, params=change_params(spn, cord1, cord2, filtr))
     with open(map_file, "wb") as file:
         file.write(response.content)
     screen.blit(pygame.image.load(map_file), (0, 0))
@@ -88,12 +89,7 @@ def moove(arrow):
             cord2 -= (float(spn) * 2)
         # cord2 -= (float(spn) * 2)
         cord2 = str(cord2)
-    params = {
-        "ll": ",".join([cord1, cord2]),
-        "spn": ",".join([spn, spn]),
-        "l": filtr
-    }
-    response = requests.get(api_server, params=params)
+    response = requests.get(api_server, params=change_params(spn, cord1, cord2, filtr))
     with open(map_file, "wb") as file:
         file.write(response.content)
     screen.blit(pygame.image.load(map_file), (0, 0))
@@ -111,12 +107,7 @@ def scaale(znak):
         if float(spn) > 0.002:
             spn = float(spn) / 2
             spn = str(spn)
-    params = {
-        "ll": ",".join([cord1, cord2]),
-        "spn": ",".join([spn, spn]),
-        "l": filtr
-    }
-    response = requests.get(api_server, params=params)
+    response = requests.get(api_server, params=change_params(spn, cord1, cord2, filtr))
     with open(map_file, "wb") as file:
         file.write(response.content)
     screen.blit(pygame.image.load(map_file), (0, 0))
@@ -128,12 +119,7 @@ def scaale(znak):
 # coords = 37.530887 55.703118
 
 try:
-    params = {
-        "ll": ",".join([cord1, cord2]),
-        "spn": ",".join([spn, spn]),
-        "l": filtr
-    }
-    response = requests.get(api_server, params=params)
+    response = requests.get(api_server, params=change_params(spn, cord1, cord2, filtr))
     if not response:
         print("Ошибка выполнения запроса:")
         print(geocoder_request)
