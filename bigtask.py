@@ -23,8 +23,8 @@ def filteer(key):
         filtr = 'map'
     elif key == '3':
         filtr = 'sat,skl'
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn,
-                                                                                        filtr)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},{}&l={}".format(cord1, cord2, spn, spn,
+                                                                                     filtr)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
         file.write(response.content)
@@ -73,7 +73,7 @@ def moove(arrow):
             cord2 -= (float(spn) * 2)
         # cord2 -= (float(spn) * 2)
         cord2 = str(cord2)
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn,
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},{}&l={}".format(cord1, cord2, spn, spn,
                                                                                         filtr)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
@@ -90,10 +90,10 @@ def scaale(znak):
             spn = float(spn) * 2
         spn = str(spn)
     elif znak == '-':
-        if float(spn) > 0.004:
+        if float(spn) > 0.002:
             spn = float(spn) / 2
             spn = str(spn)
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},{}&l={}".format(cord1, cord2, spn, spn, filtr)
     response = requests.get(map_request)
     with open(map_file, "wb") as file:
         file.write(response.content)
@@ -106,7 +106,7 @@ response = None
 # coords = 37.530887 55.703118
 
 try:
-    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
+    map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},{}&l={}".format(cord1, cord2, spn, spn, filtr)
     response = requests.get(map_request)
 
     if not response:
