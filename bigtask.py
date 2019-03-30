@@ -3,6 +3,9 @@ import requests
 import sys
 import os
 
+# границы cord1 = -174, 174
+# границы cord2 = -50, 70
+
 # spisok = ['sat', 'map', 'trf]
 # print(','.join(spisok))
 filtr = 'sat'
@@ -34,19 +37,41 @@ def moove(arrow):
     global spn, cord1, cord2
     if arrow == 'left':
         cord1 = float(cord1)
-        cord1 -= (float(spn) * 2)
+        if cord1 - (float(spn) * 2) < -174:
+            cord1 = (cord1 - (float(spn) * 2))
+            while cord1 > 174 or cord1 < -174:
+                cord1 += 174
+        else:
+            cord1 -= (float(spn) * 2)
         cord1 = str(cord1)
     elif arrow == 'right':
         cord1 = float(cord1)
-        cord1 += (float(spn) * 2)
+        if cord1 + (float(spn) * 2) > 174:
+            cord1 = (cord1 + (float(spn) * 2))
+            while cord1 > 174 or cord1 < -174:
+                cord1 -= 174
+        else:
+            cord1 += (float(spn) * 2)
         cord1 = str(cord1)
     elif arrow == 'forward':
         cord2 = float(cord2)
-        cord2 += (float(spn) * 2)
+        if cord2 + (float(spn) * 2) > 70:
+            cord2 = (cord2 + (float(spn) * 2))
+            while cord2 < -50 or cord2 > 70:
+                cord2 -= 70
+        else:
+            cord2 += (float(spn) * 2)
+        # cord2 += (float(spn) * 2)
         cord2 = str(cord2)
     elif arrow == 'back':
         cord2 = float(cord2)
-        cord2 -= (float(spn) * 2)
+        if cord2 - (float(spn) * 2) < -50:
+            cord2 = (cord2 - (float(spn) * 2))
+            while cord2 < -50 or cord2 > 70:
+                cord2 += 50
+        else:
+            cord2 -= (float(spn) * 2)
+        # cord2 -= (float(spn) * 2)
         cord2 = str(cord2)
     map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn,
                                                                                         filtr)
@@ -78,7 +103,7 @@ def scaale(znak):
 
 
 response = None
-# coords = 37.530887, 55.703118
+# coords = 37.530887 55.703118
 
 try:
     map_request = "http://static-maps.yandex.ru/1.x/?ll={},{}&spn={},0.002&l={}".format(cord1, cord2, spn, filtr)
@@ -113,22 +138,27 @@ while running:
         counter = 1
         pygame.display.flip()
     for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN and event.key  == 49 and event.scancode == 2:
+        if event.type == pygame.KEYDOWN and event.key == 49 and event.scancode == 2:
             filteer('1')
-        if event.type == pygame.KEYDOWN and event.key  == 50 and event.scancode == 3:
+        if event.type == pygame.KEYDOWN and event.key == 50 and event.scancode == 3:
             filteer('2')
-        if event.type == pygame.KEYDOWN and event.key  == 51 and event.scancode == 4:
+        if event.type == pygame.KEYDOWN and event.key == 51 and event.scancode == 4:
             filteer('3')
         if event.type == pygame.KEYDOWN and event.key == 276 and event.scancode == 75:
             moove('left')
+            # print(cord1)
         if event.type == pygame.KEYDOWN and event.key == 275 and event.scancode == 77:
             moove('right')
+            # print(cord1)
         if event.type == pygame.KEYDOWN and event.key == 273 and event.scancode == 72:
             moove('forward')
+            # print(cord2)
         if event.type == pygame.KEYDOWN and event.key == 274 and event.scancode == 80:
             moove('back')
+            # print(cord2)
         if event.type == pygame.KEYDOWN and event.key == 280 and event.scancode == 73:
             scaale('+')
+            # print(cord1, spn)
         if event.type == pygame.KEYDOWN and event.key == 281 and event.scancode == 81:
             scaale('-')
         if event.type == pygame.QUIT:
