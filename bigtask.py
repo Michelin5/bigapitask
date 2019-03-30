@@ -3,8 +3,8 @@ import requests
 import sys
 import os
 
-# границы cord1 = -174, 174
-# границы cord2 = -50, 70
+# границы cord1 = -174, 174             -179, 179
+# границы cord2 = -50, 70               -55, 80
 
 api_server = "http://static-maps.yandex.ru/1.x/"
 spn = input()
@@ -52,38 +52,38 @@ def moove(arrow):
     global spn, cord1, cord2
     if arrow == 'left':
         cord1 = float(cord1)
-        if cord1 - (float(spn) * 2) < -174:
+        if cord1 - (float(spn) * 2) < -179:
             cord1 = (cord1 - (float(spn) * 2))
-            while cord1 > 174 or cord1 < -174:
-                cord1 += 174
+            while cord1 > 179 or cord1 < -179:
+                cord1 += 179
         else:
             cord1 -= (float(spn) * 2)
         cord1 = str(cord1)
     elif arrow == 'right':
         cord1 = float(cord1)
-        if cord1 + (float(spn) * 2) > 174:
+        if cord1 + (float(spn) * 2) > 179:
             cord1 = (cord1 + (float(spn) * 2))
-            while cord1 > 174 or cord1 < -174:
-                cord1 -= 174
+            while cord1 > 179 or cord1 < -179:
+                cord1 -= 179
         else:
             cord1 += (float(spn) * 2)
         cord1 = str(cord1)
     elif arrow == 'forward':
         cord2 = float(cord2)
-        if cord2 + (float(spn) * 2) > 70:
+        if cord2 + (float(spn) * 2) > 80:
             cord2 = (cord2 + (float(spn) * 2))
-            while cord2 < -50 or cord2 > 70:
-                cord2 -= 70
+            while cord2 < -55 or cord2 > 80:
+                cord2 -= 80
         else:
             cord2 += (float(spn) * 2)
         # cord2 += (float(spn) * 2)
         cord2 = str(cord2)
     elif arrow == 'back':
         cord2 = float(cord2)
-        if cord2 - (float(spn) * 2) < -50:
+        if cord2 - (float(spn) * 2) < -55:
             cord2 = (cord2 - (float(spn) * 2))
-            while cord2 < -50 or cord2 > 70:
-                cord2 += 50
+            while cord2 < -55 or cord2 > 80:
+                cord2 += 55
         else:
             cord2 -= (float(spn) * 2)
         # cord2 -= (float(spn) * 2)
@@ -104,7 +104,7 @@ def moove(arrow):
 def scaale(znak):
     global spn, cord1, cord2
     if znak == '+':
-        if float(spn) < 131:
+        if float(spn) <= 59.5:
             spn = float(spn) * 2
         spn = str(spn)
     elif znak == '-':
@@ -184,9 +184,10 @@ while running:
             # print(cord2)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_PAGEUP:
             scaale('+')
-            # print(cord1, spn)
+            # print(cord1, cord2, spn)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_PAGEDOWN:
             scaale('-')
+            # print(cord1, spn)
         if event.type == pygame.QUIT:
             running = False
 # Рисуем картинку, загружаемую из только что созданного файла.
