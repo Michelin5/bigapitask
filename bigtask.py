@@ -140,21 +140,25 @@ except IOError as ex:
 
 # Инициализируем pygame
 pygame.init()
-screen = pygame.display.set_mode((600, 450))
+screen = pygame.display.set_mode((600, 500))
 running = True
 counter = 0
 while running:
     if counter == 0:
         screen.blit(pygame.image.load(map_file), (0, 0))
         counter = 1
+        pygame.draw.rect(screen, (255, 0, 0), (0, 450, 200, 50), 0)
+        pygame.draw.rect(screen, (0, 255, 0), (200, 450, 200, 50), 0)
+        pygame.draw.rect(screen, (0, 0, 255), (400, 450, 200, 50), 0)
         pygame.display.flip()
     for event in pygame.event.get():
-        # print(event)
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
+        print(event)
+        if event.type == pygame.MOUSEBUTTONDOWN and event.pos[0] < 200 and event.pos[1] > 450:
             filteer('1')
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_2:
+        if event.type == pygame.MOUSEBUTTONDOWN and (
+                (event.pos[0] > 200 and event.pos[0] < 400) and event.pos[1] > 450):
             filteer('2')
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_3:
+        if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] > 400 and event.pos[1] > 450):
             filteer('3')
         if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
             moove('left')
